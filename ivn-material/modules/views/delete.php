@@ -4,7 +4,10 @@ global $IVN_Model;
 $method = "delete";
 $workAction = IVN_MATERIAL_URL ."&amp;w=sav";
 
-	$objMaterial = $IVN_Model;
+$objMaterial = $IVN_Model;
+
+// load data for .display_page
+loadListMaterialsDisplayPage();
 ?>
 
 <style>
@@ -28,43 +31,39 @@ h2 span {
 }
 </style>
 <div class="wrap"><!--/wrap-お役立ち資料ダウンロード　削除-->
-	<h2><span></span><?php _e( 'お役立ち資料ダウンロード', 'ivn-material' ); ?>～<?php _e( '削除', 'ivn-material' ); ?></h2>
+	<h2><span></span><?php _e('お役立ち資料ダウンロード', 'ivn-material'); ?>～<?php _e('削除', 'ivn-material'); ?></h2>
 	<p><?php _e('ダウンロードファイルを削除し、サイトのダウンロード一覧ページから削除する。', 'ivn-material'); ?>
-		<br/>　※ <a target="_blank" href="<?php echo get_site_url(); ?>/download-materials/"><?php _e( '一覧ページはこちら', 'ivn-material' ); ?></a></p>
+		<br/>　※ <a target="_blank" href="<?php echo get_site_url(); ?>/download-materials/"><?php _e('一覧ページはこちら', 'ivn-material'); ?></a></p>
 <form action="<?php echo $workAction; ?>" method="post" name="creatematerial" id="creatematerial" class="validate" enctype="multipart/form-data">
 <input name="method" type="hidden" value="<?php echo $method; ?>" />
 <input name="ID" type="hidden" value="<?php echo $objMaterial->ID; ?>" />
 <table class="form-table">
 	<tr class="form-field"> 
-		<th scope="row"><label for="title"><?php _e( 'タイトル', 'ivn-material' ); ?></label></th>
+		<th scope="row"><label for="title"><?php _e('タイトル', 'ivn-material'); ?></label></th>
 		<td><div class="show-text"><?php echo $objMaterial->title; ?></div></td>
 	</tr>
 	<tr class="form-field">
-		<th scope="row"><label for="filename"><?php _e( '添付ファイル', 'ivn-material' ); ?></label></th>
+		<th scope="row"><label for="filename"><?php _e('添付ファイル', 'ivn-material'); ?></label></th>
 		<td><div id="filename-review" style="display: block;">※<?php echo $objMaterial->filename; ?></div></td>
 	</tr>
 	<tr class="form-field">
-		<th scope="row"><label for="publish_date_start"><?php _e( '日付', 'ivn-material' ); ?></label></th>
+		<th scope="row"><label for="publish_date_start"><?php _e('日付', 'ivn-material'); ?></label></th>
 		<td><?php echo formatDateYmd($objMaterial->publish_date_start); ?></td>
 	</tr>
 	<tr class="form-field">
-		<th scope="row"><label for="category"><?php  _e( 'どのページにリストする', 'ivn-material' ); ?></label></th>
-		<td><?php echo getMaterialsDisplayPageName($objMaterial->display_page); ?></td>
+		<th scope="row"><label for="category"><?php  _e('どのページにリストする', 'ivn-material'); ?></label></th>
+		<td><?php echo getNameMaterialsDisplayPage($objMaterial->display_page); ?></td>
 	</tr>
 	<tr class="form-field">
-		<th scope="row"><label for="creator"><?php _e( '対象者', 'ivn-material' ); ?></label></th>
+		<th scope="row"><label for="creator"><?php _e('対象者', 'ivn-material'); ?></label></th>
 		<td><div class="show-text"><?php echo $objMaterial->creator; ?></div></td>
 	</tr>
 	<tr class="form-field">
-		<th scope="row"><label for="category"><?php _e( 'カテゴリー', 'ivn-material' ); ?></label></th>
-		<td><?php echo getMaterialsCategoryName($objMaterial->category); ?></td>
+		<th scope="row"><label for="category"><?php _e('カテゴリー', 'ivn-material'); ?></label></th>
+		<td><?php echo getNameMaterialsCategory($objMaterial->category); ?></td>
 	</tr>
 	<tr class="form-field">
-		<th scope="row"><label for="creator"><?php _e( '事例', 'ivn-material' ); ?></label></th>
-		<td><?php echo $objMaterial->post_title; ?></td>
-	</tr>
-	<tr class="form-field">
-		<th scope="row"><label for="creator"><?php _e( '概要', 'ivn-material' ); ?></label></th>
+		<th scope="row"><label for="creator"><?php _e('概要', 'ivn-material'); ?></label></th>
 		<td><div class="show-text"><?php echo $objMaterial->description; ?></div></td>
 	</tr>
 	</table>

@@ -1,20 +1,20 @@
 <?php
 global $IVN_Model;
 
-$txt_screen_title = __( 'お役立ち資料ダウンロード', 'ivn-material' ) . '～' . __( '新規作成', 'ivn-material' );
-$txt_screen_description = __( '新しいダウンロードファイルを作成し、サイトのダウンロード一覧ページに追加する。', 'ivn-material' );
+$txt_screen_title = __('お役立ち資料ダウンロード', 'ivn-material') . '～' . __('新規作成', 'ivn-material');
+$txt_screen_description = __('新しいダウンロードファイルを作成し、サイトのダウンロード一覧ページに追加する。', 'ivn-material');
 $method = "insert";
 $workAction = IVN_MATERIAL_URL ."&amp;w=sav";
-?>
 
-<?php
-	$objMaterial = $IVN_Model;
-	// detect workAction==CREate or UPDate
-	if ($objMaterial->ID != '-1') {
-		$txt_screen_title = __( 'お役立ち資料ダウンロード', 'ivn-material' ) . '～' . __( '編集', 'ivn-material' );
-		$txt_screen_description = __( 'ダウンロードファイルを更新し、サイトのダウンロード一覧ページに反映する。', 'ivn-material' );
-		$method = "update";
-	}
+$objMaterial = $IVN_Model;
+// detect workAction==CREate or UPDate
+if ($objMaterial->ID != '-1') {
+	$txt_screen_title = __('お役立ち資料ダウンロード', 'ivn-material') . '～' . __('編集', 'ivn-material');
+	$txt_screen_description = __('ダウンロードファイルを更新し、サイトのダウンロード一覧ページに反映する。', 'ivn-material');
+	$method = "update";
+}
+// load data for .display_page
+loadListMaterialsDisplayPage();
 ?>
 
 <script type='text/javascript'>
@@ -25,16 +25,6 @@ jQuery(document).ready(function($) {
 		allowClear: true,
 		width: "35em",
 	});
-	
-	$("#post_id").select2({
-		//minimumInputLength : 2,
-		closeOnSelect : false,
-		allowClear: true,
-		width: "35em",
-	});
-
-	// fix error-message jqueryvalidation+selec2
-	$("#post_id").removeAttr("title");
 	
 
 	$('#creatematerial').validate({
@@ -137,54 +127,46 @@ label.valid {
 <div class="wrap">
 	<h2><span></span><?php echo $txt_screen_title; ?></h2>
 	<p><?php echo $txt_screen_description; ?>　<a target="_blank" href="<?php echo IVN_MATERIAL_IMAGES_URL; ?>materials_guide.png"><img src="<?php echo IVN_MATERIAL_IMAGES_URL; ?>help.png" alt="HELP" height="16" width="16"></a>
-		<br/>　※ <a target="_blank" href="<?php echo get_site_url(); ?>/download-materials/"><?php _e( '一覧ページはこちら', 'ivn-material' ); ?></a></p>
-		
+		<br/>　※ <a target="_blank" href="<?php echo get_site_url(); ?>/download-materials/"><?php _e('一覧ページはこちら', 'ivn-material'); ?></a>
+	</p>
 <form action="<?php echo $workAction; ?>" method="post" name="creatematerial" id="creatematerial" class="validate" enctype="multipart/form-data">
 <input name="method" type="hidden" value="<?php echo $method; ?>" />
 <input name="ID" type="hidden" value="<?php echo $objMaterial->ID; ?>" />
 <input name="filename_old" type="hidden" value="<?php echo $objMaterial->filename; ?>" />
 <table class="form-table">
 	<tr class="form-required"> 
-		<th scope="row"><label for="title"><?php _e( 'タイトル', 'ivn-material' ); ?> <span class="description_required">(<?php _e( '必須', 'ivn-material' ); ?>)</span></label></th>
+		<th scope="row"><label for="title"><?php _e('タイトル', 'ivn-material'); ?> <span class="description_required">(<?php _e('必須', 'ivn-material'); ?>)</span></label></th>
 		<td><input name="title" type="text" id="title" autofocus required class="regular-text" placeholder="例: 持続的に商談につながるセミナー運営とは(詳細編)" value="<?php echo $objMaterial->title; ?>" /></td>
 	</tr>
 	<tr class="form-required">
-		<th scope="row"><label for="filename"><?php _e( '添付ファイル', 'ivn-material' ); ?> <span class="description_required">(<?php _e( '必須', 'ivn-material' ); ?>)</span></label></th>
+		<th scope="row"><label for="filename"><?php _e('添付ファイル', 'ivn-material'); ?> <span class="description_required">(<?php _e('必須', 'ivn-material'); ?>)</span></label></th>
 		<td>
 			<input name="filename" type="file" id="filename"  class="regular-text" <?php if($objMaterial->filename == '') {echo 'required';} ?> />
 			<br/><div id="filename-review" style="display: block;">※<?php echo $objMaterial->filename; ?></div>
 		</td>
 	</tr>
 	<tr class="">
-		<th scope="row"><label for="publish_date_start"><?php _e( '日付', 'ivn-material' ); ?> <span class="description_required">(<?php _e( '必須', 'ivn-material' ); ?>)</span></label></th>
+		<th scope="row"><label for="publish_date_start"><?php _e('日付', 'ivn-material'); ?> <span class="description_required">(<?php _e('必須', 'ivn-material'); ?>)</span></label></th>
 		<td><input name="publish_date_start" type="text" id="publish_date_start"  class="regular-text" placeholder="<?php echo date('Y-m-d'); ?>" required value="<?php echo formatDateYmd($objMaterial->publish_date_start); ?>" /></td>
 	</tr>
 	<tr class="">
-		<th scope="row"><label for="display_page"><?php _e( 'どのページにリストする', 'ivn-material' ); ?> <span class="description_required">(<?php _e( '必須', 'ivn-material' ); ?>)</span></label></th>
+		<th scope="row"><label for="display_page"><?php _e('どのページにリストする', 'ivn-material'); ?> <span class="description_required">(<?php _e('必須', 'ivn-material'); ?>)</span></label></th>
 		<td>
-			<select name="display_page[]" id="display_page" required multiple placeholder="--- <?php _e( '以下項目を選択してください', 'ivn-material' ); ?> ---" ><?php createOptionMaterialsDisplayPage($objMaterial->display_page); ?>
+			<select name="display_page[]" id="display_page" required multiple placeholder="--- <?php _e('以下項目を選択してください', 'ivn-material'); ?> ---" ><?php createOptionMaterialsDisplayPage($objMaterial->display_page); ?>
 		</td>
 	</tr>
 	<tr class="">
-		<th scope="row"><label for="creator"><?php _e( '対象者', 'ivn-material' ); ?> <span class="description_required">(<?php _e( '必須', 'ivn-material' ); ?>)</span></label></th>
+		<th scope="row"><label for="creator"><?php _e('対象者', 'ivn-material'); ?> <span class="description_required">(<?php _e('必須', 'ivn-material'); ?>)</span></label></th>
 		<td><input name="creator" type="text" id="creator"  class="regular-text" placeholder="例: 法人営業・マーケティング担当者" required value="<?php echo $objMaterial->creator; ?>" /></td>
 	</tr>
 	<tr class="">
-		<th scope="row"><label for="category"><?php _e( 'カテゴリー', 'ivn-material' ); ?> <span class="description_required">(<?php _e( '必須', 'ivn-material' ); ?>)</span></label></th>
+		<th scope="row"><label for="category"><?php _e('カテゴリー', 'ivn-material'); ?> <span class="description_required">(<?php _e('必須', 'ivn-material'); ?>)</span></label></th>
 		<td>
-			<select name="category" id="category" required placeholder="--- <?php _e( '以下項目を選択してください', 'ivn-material' ); ?> ---" ><?php createOptionMaterialsCategory($objMaterial->category); ?></select>
-		</td>
-	</tr>
-	<tr class="usecase">
-		<th scope="row"><label for="post_id"><?php _e( '事例', 'ivn-material' ); ?> <span class="description_required">(<?php _e( '必須', 'ivn-material' ); ?>)</span></label></th>
-		<td>
-			<select name="post_id" id="post_id" required placeholder="--- <?php _e( '以下項目を選択してください', 'ivn-material' ); ?> ---" >
-				<?php createOptionMaterialsUsecase($objMaterial->post_id, $objMaterial->searchUsecase()); ?>
-			</select>
+			<select name="category" id="category" required placeholder="--- <?php _e('以下項目を選択してください', 'ivn-material'); ?> ---" ><?php createOptionMaterialsCategory($objMaterial->category); ?></select>
 		</td>
 	</tr>
 	<tr class="">
-		<th scope="row"><label for="description"><?php _e( '概要', 'ivn-material' ); ?></label></th>
+		<th scope="row"><label for="description"><?php _e('概要', 'ivn-material'); ?></label></th>
 		<td><textarea rows="4" cols="50" name="description" type="text" id="description"placeholder="例: データベース開発支援ツール"><?php echo $objMaterial->description; ?></textarea> </td>
 	</tr>
 	</table>

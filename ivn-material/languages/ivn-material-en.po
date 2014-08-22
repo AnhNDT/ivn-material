@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: AnhNDT<anhndt@vn.innovation.co.jp>\n"
-"POT-Creation-Date: 2014-08-16 14:02+0700\n"
+"POT-Creation-Date: 2014-08-21 16:35+0700\n"
 "PO-Revision-Date: \n"
 "Last-Translator: anhndt <anhndt@vn.innovation.co.jp>\n"
 "Language-Team: AnhNDT <anhndt@vn.innovation.co.jp>\n"
@@ -23,16 +23,16 @@ msgstr ""
 "X-Generator: Poedit 1.6.7\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: ivn-material.php:111
+#: ivn-material.php:87
 msgid "お役立ち資料管理"
 msgstr "Manage Helpful Materials"
 
-#: ivn-material.php:112
+#: ivn-material.php:88
 msgid "お役立ち資料"
 msgstr "Helpful Materials"
 
-#: modules/views/create.php:4 modules/views/create.php:14
-#: modules/views/delete.php:31 modules/views/index.php:42
+#: modules/views/create.php:4 modules/views/create.php:12
+#: modules/views/delete.php:34 modules/views/index.php:46
 msgid "お役立ち資料ダウンロード"
 msgstr "Download Helpful Materials"
 
@@ -46,88 +46,94 @@ msgid ""
 "る。"
 msgstr "Create new download file, and showing on page of public site."
 
-#: modules/views/create.php:14 modules/views/index.php:136
+#: modules/views/create.php:12 modules/views/index.php:143
 msgid "編集"
 msgstr "Edit"
 
-#: modules/views/create.php:15
+#: modules/views/create.php:13
 msgid ""
 "ダウンロードファイルを更新し、サイトのダウンロード一覧ページに反映する。"
 msgstr "Edit download file, and reflect on page of public site."
 
-#: modules/views/create.php:152 modules/views/delete.php:33
+#: modules/views/create.php:140 modules/views/delete.php:36
+#: modules/views/index.php:50
 msgid "一覧ページはこちら"
 msgstr "Here is list page"
 
-#: modules/views/create.php:159 modules/views/delete.php:39
-#: modules/views/index.php:78 modules/views/index.php:102
+#: modules/views/create.php:148 modules/views/delete.php:42
+#: modules/views/index.php:85 modules/views/index.php:109
 msgid "タイトル"
 msgstr "Title"
 
+#: modules/views/create.php:148 modules/views/create.php:152
 #: modules/views/create.php:159 modules/views/create.php:163
-#: modules/views/create.php:170 modules/views/create.php:174
-#: modules/views/create.php:180 modules/views/create.php:184
-#: modules/views/create.php:190
+#: modules/views/create.php:169 modules/views/create.php:173
 msgid "必須"
 msgstr "required"
 
-#: modules/views/create.php:163 modules/views/delete.php:43
+#: modules/views/create.php:152 modules/views/delete.php:46
 msgid "添付ファイル"
 msgstr "Attach File"
 
-#: modules/views/create.php:170 modules/views/delete.php:47
-#: modules/views/index.php:82 modules/views/index.php:106
+#: modules/views/create.php:159 modules/views/delete.php:50
+#: modules/views/index.php:89 modules/views/index.php:113
 msgid "日付"
 msgstr "Date"
 
-#: modules/views/create.php:174 modules/views/delete.php:51
-#: modules/views/index.php:85 modules/views/index.php:109
+#: modules/views/create.php:163 modules/views/delete.php:54
+#: modules/views/index.php:92 modules/views/index.php:116
 msgid "どのページにリストする"
 msgstr "Show On Page"
 
-#: modules/views/create.php:176 modules/views/create.php:186
-#: modules/views/create.php:192
+#: modules/views/create.php:165 modules/views/create.php:175
 msgid "以下項目を選択してください"
 msgstr "Please select an item"
 
-#: modules/views/create.php:180 modules/views/delete.php:55
-#: modules/views/index.php:89 modules/views/index.php:113
+#: modules/views/create.php:169 modules/views/delete.php:58
+#: modules/views/index.php:96 modules/views/index.php:120
 msgid "対象者"
 msgstr "Creator"
 
-#: modules/views/create.php:184 modules/views/delete.php:59
+#: modules/views/create.php:173 modules/views/delete.php:62
 msgid "カテゴリー"
 msgstr "Category"
 
-#: modules/views/create.php:190 modules/views/delete.php:63
-msgid "事例"
-msgstr "Usecase"
-
-#: modules/views/create.php:198 modules/views/delete.php:67
+#: modules/views/create.php:179 modules/views/delete.php:66
 msgid "概要"
 msgstr "Description"
 
-#: modules/views/create.php:204
+#: modules/views/create.php:185
 msgid "保存"
 msgstr "Save"
 
-#: modules/views/delete.php:31 modules/views/delete.php:73
-#: modules/views/index.php:137
+#: modules/views/delete.php:34 modules/views/delete.php:72
+#: modules/views/index.php:144
 msgid "削除"
 msgstr "Delete"
 
-#: modules/views/delete.php:32
+#: modules/views/delete.php:35
 msgid ""
 "ダウンロードファイルを削除し、サイトのダウンロード一覧ページから削除する。"
 msgstr "Delete download material, remove from list on public site."
 
-#: modules/views/index.php:42
+#: modules/views/index.php:46
 msgid "一覧"
 msgstr "List"
 
-#: modules/views/index.php:43
+#: modules/views/index.php:47
 msgid "追加"
 msgstr "Addnew"
+
+#: modules/views/index.php:49
+msgid "ダウンロードエアコンをクリックして、内容が確認できる。"
+msgstr "click icon download to view uploaded file."
+
+#: modules/views/index.php:50
+msgid "◆⇒特徴・機能；　■⇒活用シーン；　▲⇒活用事例；"
+msgstr "◆⇒function；　■⇒scene；　▲⇒usecase；"
+
+#~ msgid "事例"
+#~ msgstr "Usecase"
 
 #~ msgid "このリンクで確認できる。"
 #~ msgstr "click here to view list."

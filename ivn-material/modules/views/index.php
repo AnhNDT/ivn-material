@@ -4,25 +4,30 @@ global $MATERIALS_CATEGORY_LIST;
 
 $material_list = $IVN_Model->search_data;
 $categoryCounts = array (
-						'all' => 0,
-						'helpful' => 0,
-						'usecase' => 0,
-					);
+	'all' => 0,
+	'helpful' => 0,
+	'usecase' => 0,
+);
+
 // count materials.category
 $tmpList = $IVN_Model->countCategory();
-foreach ( $tmpList as $theCount ) {
-	if ( $theCount->name == 'helpful' ) {
+foreach ($tmpList as $theCount) {
+	if ($theCount->name == 'helpful') {
 		$categoryCounts['helpful'] = $theCount->value;
-	} elseif ( $theCount->name == 'usecase' ) {
+	} elseif ($theCount->name == 'usecase') {
 		$categoryCounts['usecase'] = $theCount->value;
 	} 
 	$categoryCounts['all'] += $theCount->value;
 }
+
 // searching materials.category
 $categorySearching = 'all';
-if ( isset( $_GET['category'] ) ) {
+if (isset($_GET['category'])) {
 	$categorySearching = $_GET['category'];
 }
+
+// load data for .display_page
+loadListMaterialsDisplayPage();
 ?>
 
 <style>
@@ -32,17 +37,18 @@ h2 span {
 }
 .wp-list-table .column-title { width: 30%; }
 .wp-list-table .column-publish-date-start { width: 85px; }
-.wp-list-table .column-display-page { width: 115px; }
+.wp-list-table .column-display-page { width: 196px; }
 .wp-list-table .column-filename { width: 40px; }
 
 </style>
 <div class="wrap"><!--wrap-お役立ち資料ダウンロード　一覧-->
 	<h2>
-		<span></span>
-		<?php _e( 'お役立ち資料ダウンロード', 'ivn-material' ); ?>～<?php _e( '一覧', 'ivn-material' ); ?>
-		<a href="<?php echo IVN_MATERIAL_URL ."&amp;w=cre&amp;wID=-1"; ?>" class="add-new-h2"><?php _e( '追加', 'ivn-material' ); ?></a>
+		<span></span><?php _e('お役立ち資料ダウンロード', 'ivn-material'); ?>～<?php _e('一覧', 'ivn-material'); ?>
+		<a href="<?php echo IVN_MATERIAL_URL ."&amp;w=cre&amp;wID=-1"; ?>" class="add-new-h2"><?php _e('追加', 'ivn-material'); ?></a>
 	</h2>
-	<p>　※ <a target="_blank" href="<?php echo get_site_url(); ?>/download-materials/"><?php _e( '一覧ページはこちら', 'ivn-material' ); ?></a></p>
+	<p><?php _e('ダウンロードエアコンをクリックして、内容が確認できる。', 'ivn-material'); ?>
+		<br/>　※ <?php _e('◆⇒特徴・機能；　■⇒活用シーン；　▲⇒活用事例；', 'ivn-material'); ?>　　　※※ <a target="_blank" href="<?php echo get_site_url(); ?>/download-materials/"><?php _e('一覧ページはこちら', 'ivn-material'); ?></a>
+	</p>
 <form method='POST' action="<?php echo IVN_MATERIAL_URL; ?>">
 <div class="tablenav top">
 	<div class="alignleft actions bulkactions">
@@ -76,18 +82,18 @@ h2 span {
 		</th>
 		<th scope='col' class='manage-column column-title sortable desc'>
 			<a href="<?php echo IVN_MATERIAL_URL; ?>">
-				<span><?php _e( 'タイトル', 'ivn-material' ); ?></span><span class="sorting-indicator"></span></a>
+				<span><?php _e('タイトル', 'ivn-material'); ?></span><span class="sorting-indicator"></span></a>
 		</th>
 		<th scope='col' class='manage-column column-publish-date-start sortable desc'>
 			<a href="<?php echo IVN_MATERIAL_URL; ?>">
-				<span><?php _e( '日付', 'ivn-material' ); ?></span><span class="sorting-indicator"></span></a>
+				<span><?php _e('日付', 'ivn-material'); ?></span><span class="sorting-indicator"></span></a>
 		</th>
 		<th scope='col' class='manage-column column-display-page'>
-				<span><?php _e( 'どのページにリストする', 'ivn-material' ); ?></span>
+				<span><?php _e('どのページにリストする', 'ivn-material'); ?></span>
 		</th>
 		<th scope='col' class='manage-column column-creator sortable desc'>
 			<a href="<?php echo IVN_MATERIAL_URL; ?>">
-				<span><?php _e( '対象者', 'ivn-material' ); ?></span><span class="sorting-indicator"></span></a>
+				<span><?php _e('対象者', 'ivn-material'); ?></span><span class="sorting-indicator"></span></a>
 		</th>
 		<th scope='col' class='manage-column column-filename'><img width="20" height="20" src="<?php echo IVN_MATERIAL_IMAGES_URL; ?>img_attachment_40x40.png"/></th>
 	</tr>
@@ -100,18 +106,18 @@ h2 span {
 		</th>
 		<th scope='col' class='manage-column column-title sortable desc'>
 			<a href="<?php echo IVN_MATERIAL_URL; ?>">
-				<span><?php _e( 'タイトル', 'ivn-material' ); ?></span><span class="sorting-indicator"></span></a>
+				<span><?php _e('タイトル', 'ivn-material'); ?></span><span class="sorting-indicator"></span></a>
 		</th>
 		<th scope='col' class='manage-column column-publish-date-start sortable desc'>
 			<a href="<?php echo IVN_MATERIAL_URL; ?>">
-				<span><?php _e( '日付', 'ivn-material' ); ?></span><span class="sorting-indicator"></span></a>
+				<span><?php _e('日付', 'ivn-material'); ?></span><span class="sorting-indicator"></span></a>
 		</th>
 		<th scope='col' class='manage-column column-display-page'>
-				<span><?php _e( 'どのページにリストする', 'ivn-material' ); ?></span>
+				<span><?php _e('どのページにリストする', 'ivn-material'); ?></span>
 		</th>
 		<th scope='col' class='manage-column column-creator sortable desc'>
 			<a href="<?php echo IVN_MATERIAL_URL; ?>">
-				<span><?php _e( '対象者', 'ivn-material' ); ?></span><span class="sorting-indicator"></span></a>
+				<span><?php _e('対象者', 'ivn-material'); ?></span><span class="sorting-indicator"></span></a>
 		</th>
 		<th scope='col' class='manage-column column-filename'><img width="20" height="20" src="<?php echo IVN_MATERIAL_IMAGES_URL; ?>img_attachment_40x40.png"/></th>
 	</tr>
@@ -134,14 +140,14 @@ if ($material_list):
 				<strong><a href="<?php echo $urlWorkAction ."upd"; ?>"><?php echo htmlspecialchars($theMaterial->title); ?></a></strong>
 				<br />
 				<div class="row-actions">
-					<span class='edit'><a href="<?php echo $urlWorkAction ."upd"; ?>"><?php _e( '編集', 'ivn-material' ); ?></a> | </span>
-					<span class='delete'><a class='submitdelete' href="<?php echo $urlWorkAction ."del"; ?>"><?php _e( '削除', 'ivn-material' ); ?></a></span>
+					<span class='edit'><a href="<?php echo $urlWorkAction ."upd"; ?>"><?php _e('編集', 'ivn-material' ); ?></a> | </span>
+					<span class='delete'><a class='submitdelete' href="<?php echo $urlWorkAction ."del"; ?>"><?php _e('削除', 'ivn-material'); ?></a></span>
 				</div>
 			</td>
 			<td class="name column-publish-date-start"><?php echo formatDateYmd($theMaterial->publish_date_start); ?></td>
-			<td class="name column-display-page"><?php echo getMaterialsDisplayPageName($theMaterial->display_page); ?></td>
+			<td class="name column-display-page"><?php echo getNameMaterialsDisplayPage(trim($theMaterial->display_page, ',')); ?></td>
 			<td class="creator column-creator"><?php echo htmlspecialchars($theMaterial->creator); ?></td>
-			<td class="filename column-filename"><a target="_blank" href="<?php echo IVN_MATERIAL_DOCUMENTS_URI . $theMaterial->filename; ?>"><img width="32" height="32" src="<?php echo IVN_MATERIAL_IMAGES_URL; ?>img_download_32x32.png"/></a></td>
+			<td class="filename column-filename"><a target="_blank" href="<?php echo IVN_MATERIAL_DOCUMENTS_URI . $theMaterial->filename; ?>"><img width="24" height="24" src="<?php echo IVN_MATERIAL_IMAGES_URL; ?>img_download_32x32.png"/></a></td>
 		</tr>
 <?php
 	endforeach;

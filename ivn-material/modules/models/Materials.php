@@ -1,15 +1,19 @@
 <?php
-class Materials {
+class Materials
+{
 	public $ID = "-1";
 	public $title = "";
 	public $filename = "";
 	public $filename_old = "";
 	public $description = "";
 	public $publish_date_start;
+	/**
+	 * search pattern ',nnnn,'
+	 * sample: display_page = ',1227,1230,1232,'
+	 */
 	public $display_page = "";
 	public $creator = "";
 	public $category = '';
-	public $post_id = "";
 	public $display_order = "9999";
 	public $search_data = null;
 
@@ -21,51 +25,51 @@ class Materials {
 	 * save uploaded file to  /YYYYMM/000007777712
 	 */
 	public function populatePOST() {
-		foreach ( $_POST as $var => $value ) {
-			if ( is_string( $value ) ) {
-				$this->$var = trim( $value );
+		foreach ($_POST as $var => $value) {
+			if (is_string($value)) {
+				$this->$var = trim($value);
 				continue;
 			}
 			// convert array to string
-			if ( is_array( $value ) ) {
-				$this->$var = implode( ',', $value );
+			if (is_array($value)) {
+				$this->$var = implode(',', $value);
 			}
 		}
 		
 		// retrieve uploaded .filename
-		if ( isset( $_FILES['filename'] ) && ($_FILES['filename']['name'] != '') ) {
+		if (isset($_FILES['filename']) && ($_FILES['filename']['name'] != '')) {
 			$tmpFile = $_FILES['filename'];
 			$tmpDirName = '';
-			if ( $this->filename_old == '' ) {
+			if ($this->filename_old == '') {
 				// create folder /YYYYMM/
-				$tmpDirName = date( 'Ym' );
+				$tmpDirName = date('Ym');
 				$tmpDirPath = IVN_MATERIAL_DOCUMENTS_PATH . "$tmpDirName/";
-				if ( ! is_dir( $tmpDirPath ) ) {
-					mkdir( $tmpDirPath, 0777, TRUE );
+				if ( ! is_dir($tmpDirPath)) {
+					mkdir($tmpDirPath, 0777, TRUE);
 				}
 				// create folder /YYYYMM/000001111122/
-				$tmpDirName .= "/" . str_pad( strval( time() ), 12, '0', STR_PAD_LEFT );
+				$tmpDirName .= "/" . str_pad(strval(time()), 12, '0', STR_PAD_LEFT);
 				$tmpDirPath= IVN_MATERIAL_DOCUMENTS_PATH . "$tmpDirName/";
-				if ( ! is_dir( $tmpDirPath ) ) {
-					mkdir( $tmpDirPath, 0777, TRUE );
+				if ( ! is_dir($tmpDirPath)) {
+					mkdir($tmpDirPath, 0777, TRUE);
 				}
 			} else {
 				// get created folder from ->filename= 'YYYYMM/000001111122/filename.txt'
-				$tmpDirName = substr( $this->filename_old, 0, 19 );
+				$tmpDirName = substr($this->filename_old, 0, 19);
 			}
 			
 			// re-check
 			$tmpDirPath= IVN_MATERIAL_DOCUMENTS_PATH . "$tmpDirName/";
-			if ( ! is_dir( $tmpDirPath ) ) {
-					mkdir( $tmpDirPath, 0777, TRUE );
+			if ( ! is_dir($tmpDirPath) ) {
+					mkdir($tmpDirPath, 0777, TRUE);
 			}
 			
 			// convert filename to UTF-8
-			$newFileName = mb_convert_encoding( $tmpFile['name'], "UTF-8", "auto" );
+			$newFileName = mb_convert_encoding($tmpFile['name'], "UTF-8", "auto");
 			$newFilePath = $tmpDirPath . $newFileName;
-			if ( ! copy( $tmpFile['tmp_name'], $newFilePath ) ) {
-				trigger_error( 'cannot save file ... ' .$newFilePath, 
-					headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE );
+			if ( ! copy($tmpFile['tmp_name'], $newFilePath)) {
+				trigger_error('cannot save file ... ' .$newFilePath,
+					headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE);
 				return false;
 			}
 			// set filename with properly path
@@ -73,35 +77,35 @@ class Materials {
 			$this->filename_old = '';
 		}
 		// or set old filename
-		if ( $this->filename_old != '' ) {
+		if ($this->filename_old != '') {
 			$this->filename = $this->filename_old;
 		}
 	}
 
 	/**
 	 */
-	public function retrieveID( $id ) {
+	public function retrieveID($id) {
 		$sSQL = <<<EOT
 SELECT im.ID, im.title, im.filename, im.publish_date_start, im.display_page, 
-	im.creator, im.category, im.description, im.post_id, wp.post_title
-FROM
-	ivn_materials im LEFT JOIN wp_posts wp ON (im.post_id = wp.ID)
+	im.creator, im.category, im.description
+FROM ivn_materials im
 WHERE im.deleted_flag = 0
 	AND im.ID=$id
 EOT;
 		global $wpdb;
-		$arrTemp = $wpdb->get_row( $sSQL, ARRAY_A );
-		if ( isset( $arrTemp ) ) {
-			foreach ( $arrTemp as $var => $value ) {
-				$this->$var = htmlspecialchars( $value );
+		$arrTemp = $wpdb->get_row($sSQL, ARRAY_A);
+		if (isset($arrTemp)) {
+			foreach ($arrTemp as $var => $value) {
+				$this->$var = htmlspecialchars($value);
 			}
 			$this->filename_old = $this->filename;
 		}
+		$this->display_page = trim($this->display_page, ',');
 	}
 
 	/**
 	 */
-	public function search( $strCond = '' ) {
+	public function search($strCond = '') {
 		$sSQL = <<<EOT
 SELECT ID,
 	title,
@@ -115,7 +119,7 @@ WHERE im.deleted_flag = 0
 ORDER BY im.display_order ASC, im.updated_date DESC;
 EOT;
 		global $wpdb;
-		$this->search_data = $wpdb->get_results( $sSQL );
+		$this->search_data = $wpdb->get_results($sSQL);
 	}
 
 	/**
@@ -131,23 +135,18 @@ EOT;
 		$strV .= "'$this->title', ";
 		$strV .= "'$this->filename', ";
 		$strV .= "'$this->publish_date_start', ";
-		$strV .= "'$this->display_page', ";
+		$strV .= "',$this->display_page,', ";
 		$strV .= "'$this->creator', ";
 		$strV .= "'$this->category', ";
-		if ($this->post_id != '') {
-			$strV .= "$this->post_id, ";
-		} else {
-			$strV .= 'NULL, ';
-		}
 		$strV .= "'$this->description', ";
 		$strV .= 'NOW()';
 		$sSQL = <<<EOT
 INSERT INTO ivn_materials (ID, title, filename, publish_date_start, display_page,
-	creator, category, post_id, description, updated_date)
+	creator, category, description, updated_date)
 VALUES($strV);
 EOT;
 		global $wpdb;
-		return $wpdb->query( $sSQL );
+		return $wpdb->query($sSQL);
 	}
 
 	/**
@@ -157,14 +156,9 @@ EOT;
 		$strV = "title='$this->title', \n";
 		$strV .= "filename='$this->filename', \n";
 		$strV .= "publish_date_start='$this->publish_date_start', \n";
-		$strV .= "display_page='$this->display_page', \n";
+		$strV .= "display_page=',$this->display_page,', \n";
 		$strV .= "creator='$this->creator', \n";
 		$strV .= "category='$this->category', \n";
-		if ( $this->post_id != '' ) {
-			$strV .= "post_id=$this->post_id, \n";
-		} else {
-			$strV .= "post_id=NULL, \n";
-		}
 		$strV .= "description='$this->description', \n";
 		$strV .= 'updated_date=NOW() ';
 		$sSQL = <<<EOT
@@ -174,7 +168,7 @@ SET
 WHERE ID = $strID
 EOT;
 		global $wpdb;
-		return $wpdb->query( $sSQL );
+		return $wpdb->query($sSQL);
 	}
 
 	/**
@@ -187,34 +181,7 @@ SET deleted_flag = 1
 WHERE ID = $strID
 EOT;
 		global $wpdb;
-		return $wpdb->query( $sSQL );
-	}
-
-	/**
-	 */
-	public function searchUsecase() {
-		$sSQL = <<<EOT
-SELECT wp_posts.ID, wp_posts.post_title as name
-FROM wp_posts
-WHERE wp_posts.post_type = 'usecase'
-	AND wp_posts.post_status = 'publish'
-ORDER BY name
-EOT;
-		global $wpdb;
-		return $wpdb->get_results( $sSQL );
-	}
-
-	/**
-	 */
-	public function searchCreator() {
-		$sSQL = <<<EOT
-SELECT post_id, meta_key, meta_value 
-FROM wp_postmeta 
-WHERE post_id IN (1220) 
-ORDER BY meta_id ASC
-EOT;
-		global $wpdb;
-		return $wpdb->get_results( $sSQL );
+		return $wpdb->query($sSQL);
 	}
 
 	/**
@@ -228,7 +195,7 @@ GROUP BY category
 ORDER BY name
 EOT;
 		global $wpdb;
-		return $wpdb->get_results( $sSQL );
+		return $wpdb->get_results($sSQL);
 	}
 
 }
