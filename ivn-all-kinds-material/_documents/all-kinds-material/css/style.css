@@ -1,0 +1,185 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	font-family: "メイリオ", Meiryo, Osaka, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro","ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-size:100%;
+	color:#333333;
+	min-width:992px;
+}
+
+#main_wrap {
+	background:#F5F9FC;
+	padding:15px 0 0 0;
+}
+
+#main {
+	width:960px;
+	margin:0 auto;
+	padding:
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: block;
+    overflow: hidden;
+}
+ 
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.sdw {
+	box-shadow:0 0 5px 0 rgba(204,204,204,0.3),
+	0 0 5px 0 rgba(204,204,204,0.3);
+	-moz-box-shadow:0 0 5px 0 rgba(204,204,204,0.3),
+	0 0 5px 0 rgba(204,204,204,0.3);
+	-webkit-box-shadow:0 0 5px 0 rgba(204,204,204,0.3),
+	0 0 5px 0 rgba(204,204,204,0.3);
+}
+
+.clear{ clear:both;}
+
+#mainL1 {
+	width:780px;
+	margin:10px 0 85px 0;
+}
+
+#mainL1 #function h2 {
+	background:url("../images/ekm_headline.png") no-repeat;
+	width:382px;
+	height:57px;
+}
+
+#mainL1 #function h2 .headline {
+	color:#FFFFFF;
+	font-size:150%;
+	font-weight:bold;
+	padding:4px 0px 0px 50px;
+	line-height:26px;
+	height:56px;
+	vertical-align:middle;
+	display:table-cell;
+}
+
+#mainL1 #function .row_material {
+	margin-bottom: 30px;
+}
+
+#mainL1 #function .row_material .box_left {
+	float:left;
+}
+#mainL1 #function .row_material .box_right {
+	float:right;
+}
+
+#mainL1 #function .box_material_download {
+	width:380px;
+	height:auto;
+	background:#FFFFFF;
+	border:1px solid #dddddd;
+	float: left;
+}
+
+#mainL1 #function .box_material_download .inr {
+	width:340px;
+	height:auto;
+	padding:0px 20px 15px 20px;
+	border-bottom:4px solid #226699;
+}
+
+#mainL1 #function .box_material_download .inr .inrLayer h3 {
+	font-size: 115%;
+	margin: 20px 0 2px 0;
+	font-weight: bold;
+	line-height: 25px;
+}
+
+.box_content {
+	margin-top: 20px;
+}
+
+.box_date1{ 
+	border-top:1px solid #bbbbbb;
+	border-left:1px solid #bbbbbb;
+	border-right:1px solid #bbbbbb;
+	height:29px;
+}
+
+.box_date1 .box_text_left{ 
+	float: left;
+	width: 117px;
+	height: 27px;
+	margin: 1px;
+	line-height: 27px;
+	color: #303030;
+	font-weight: 700;
+	font-size: 1.1em;
+	padding-left: 9px;
+}
+
+.box_date1 .box_text_right{ 
+	float: right;
+	width: 200px;
+	height: 27px;
+	background: #e97264;
+	margin: 1px;
+	line-height: 27px;
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 1em;
+	padding-left: 6px;
+}
+
+.box_date2{ 
+	border: 1px solid #bbbbbb;
+	height: 29px;
+}
+
+.box_date2 .box_text_left{ 
+	float: left;
+	width: 117px;
+	height: 27px;
+	margin: 1px;
+	line-height: 27px;
+	color: #303030;
+	font-weight: 700;
+	font-size: 1.1em;
+	padding-left: 9px;
+}
+
+.box_date2 .box_text_right{ 
+	float: right;
+	width: 200px;
+	height: 27px;
+	background: #79bcee;
+	margin: 1px;
+	line-height: 27px;
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 1em;
+	padding-left: 6px;
+}
+
+.box_footer{ margin-top:40px;}
+
+.box_footer .btn_download{
+	text-align: center;
+	float: left;
+}
+
+.box_footer .text2{ 
+	float: right;
+	padding: 8px 0 0 0;
+	font-size: 0.8em;
+	line-height: 17px;
+}
+
+.box_footer .text2>p{ 
+	font-weight: bold;
+	letter-spacing: -1px;
+}
