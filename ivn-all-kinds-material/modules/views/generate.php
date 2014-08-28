@@ -53,7 +53,7 @@ if ($material_list):
 										<div class="inrLayer"><!--inrLayer-->
 											<h3><?php echo $theMaterial->description; ?></h3>
 											<div class="box_content">
-												<div class="box_date1" <?php if ( ! isset($theMaterial->publish_start_date)) echo "style='display:none;'"; ?>>
+												<div class="box_date1" <?php if ( ( ! isset($theMaterial->publish_start_date)) || (strcmp('0000-00-00 00:00:00', $theMaterial->publish_start_date) == 0)) echo "style='display:none;'"; ?>>
 													<p class="box_text_left">適用開始日</p>
 													<p class="box_text_right"><?php echo formatDateYmdJP($theMaterial->publish_start_date); ?></p>
 												</div>
@@ -67,7 +67,7 @@ if ($material_list):
 														<p>形式　：<?php echo $file_description['ext']; ?></p>
 														<p>サイズ：<?php echo $file_description['size']; ?></p>
 													</div>
-													<div class="btn_download"><a href="<?php echo IVN_ALLKINDSMATERIAL_DOCUMENTS_URI . $theMaterial->filename;?>"><img src="images/ekm_btn_download.png" alt="ダウンロードする" width="202" height="45" class="rollover" target="_blank"/></a></div>
+													<div class="btn_download"><a target="_blank" href="<?php echo IVN_ALLKINDSMATERIAL_DOCUMENTS_URI . $theMaterial->filename;?>"><img src="images/ekm_btn_download.png" alt="ダウンロードする" width="202" height="45" class="rollover"/></a></div>
 												</div>
 											</div>
 										</div><!--/inrLayer-->
